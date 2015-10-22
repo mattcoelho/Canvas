@@ -10,9 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var trayView: UIView!
+    var trayOriginalCenter: CGPoint!
+    var openTrayView: CGPoint!
+    var closedTrayView: CGPoint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        var openTrayView = self.trayView
+        var closedTrayView = 
+     
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,5 +28,35 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func onTrayPanGesture(sender: UIPanGestureRecognizer) {
+        
+        
+        
+        var translation = sender.translationInView(view)
+        var velocity = sender.velocityInView(view)
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            trayOriginalCenter = trayView.center
+            //print("Gesture began at: \(trayOriginalCenter)")
+            
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            
+            
+            trayView.center = CGPoint(x: trayOriginalCenter.x, y: trayOriginalCenter.y + translation.y)
+            
+            
+            //print("Gesture changed at: \(trayOriginalCenter)")
+            
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            var velocity = sender.velocityInView(trayView)
+            if velocity.y > 0 {
+                
+                
+            }
+            
+            print("Gesture ended at: \(trayOriginalCenter)")
+        }
+        
+    }
 }
 
